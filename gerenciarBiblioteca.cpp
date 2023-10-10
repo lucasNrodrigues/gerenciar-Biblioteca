@@ -114,27 +114,26 @@ void GrafoLivros::listarCaminho(int idOrigem, int idDestino) {
         cout << "Caminho mais curto entre '" << livros[idOrigem].titulo << "' e '" << livros[idDestino].titulo << "':" << endl;
         for (int i = caminho.size() - 1; i >= 0; --i) {
             int idLivro = caminho[i];
-            cout << "ID: " << idLivro << ", Título: " << livros[idLivro].titulo << ", Autor: " << livros[idLivro].autor << endl;
+            cout << "ID: " << idLivro << ", TÃ­tulo: " << livros[idLivro].titulo << ", Autor: " << livros[idLivro].autor << endl;
         }
     } else {
-        cout << "Não há caminho entre '" << livros[idOrigem].titulo << "' e '" << livros[idDestino].titulo << "'." << endl;
+        cout << "Nao ha caminho entre '" << livros[idOrigem].titulo << "' e '" << livros[idDestino].titulo << "'." << endl;
     }
 }
 
 void GrafoLivros::removerLivro(int id) {
     if (id >= 0 && id < livros.size()) {
-        // Remova o livro do grafo e da lista de livros
+     
         for (int i = 0; i < livros.size(); ++i) {
             grafo[i].erase(remove_if(grafo[i].begin(), grafo[i].end(), [id](const Aresta& a) { return a.destino == id; }), grafo[i].end());
         }
         livros.erase(livros.begin() + id);
-        // Atualize os IDs dos livros restantes
         for (int i = 0; i < livros.size(); ++i) {
             livros[i].id = i;
         }
         cout << "Livro removido com sucesso." << endl;
     } else {
-        cout << "ID de livro inválido." << endl;
+        cout << "ID de livro invalido." << endl;
     }
 }
 
@@ -143,20 +142,20 @@ void GrafoLivros::listarLivrosConectados(int id) {
         cout << "Livros conectados a '" << livros[id].titulo << "':" << endl;
         for (const Aresta& aresta : grafo[id]) {
             const Livro& livro = livros[aresta.destino];
-            cout << "ID: " << livro.id << ", Título: " << livro.titulo << ", Autor: " << livro.autor << endl;
+            cout << "ID: " << livro.id << ", TÃ­tulo: " << livro.titulo << ", Autor: " << livro.autor << endl;
         }
     } else {
-        cout << "ID de livro inválido." << endl;
+        cout << "ID de livro invalido." << endl;
     }
 }
 
 void GrafoLivros::adicionarCategoria(int id, const std::string& categoria) {
     if (id >= 0 && id < livros.size()) {
-        // Adicione a categoria ao livro
+        
         livros[id].categoria = categoria;
         cout << "Categoria '" << categoria << "' adicionada ao livro '" << livros[id].titulo << "'." << endl;
     } else {
-        cout << "ID de livro inválido." << endl;
+        cout << "ID de livro invalido." << endl;
     }
 }
 
@@ -166,10 +165,10 @@ void GrafoLivros::listarLivrosPorCategoria(const std::string& categoria) {
         const std::vector<int>& livrosCategoria = categorias[categoria];
         for (int idLivro : livrosCategoria) {
             const Livro& livro = livros[idLivro];
-            cout << "ID: " << livro.id << ", Título: " << livro.titulo << ", Autor: " << livro.autor << endl;
+            cout << "ID: " << livro.id << ", TÃ­tulo: " << livro.titulo << ", Autor: " << livro.autor << endl;
         }
     } else {
-        cout << "Categoria não encontrada." << endl;
+        cout << "Categoria nao encontrada." << endl;
     }
 }
 
@@ -186,13 +185,13 @@ bool GrafoLivros::verificarConexao(int id1, int id2) {
 
 void GrafoLivros::modificarLivro(int id, const string& novoTitulo, const string& novoAutor, const string& novaCategoria) {
     if (id >= 0 && id < livros.size()) {
-        // Modifique as informações do livro
+      
         livros[id].titulo = novoTitulo;
         livros[id].autor = novoAutor;
         livros[id].categoria = novaCategoria;
-        cout << "Informações do livro atualizadas com sucesso." << endl;
+        cout << "InformaÃ§Ãµes do livro atualizadas com sucesso." << endl;
     } else {
-        cout << "ID de livro inválido." << endl;
+        cout << "ID de livro invÃ¡lido." << endl;
     }
 }
 
@@ -203,16 +202,16 @@ void GrafoLivros::registrarEmprestimo(int id) {
             disponibilidade[id][id] = false;
             cout << "Livro '" << livros[id].titulo << "' emprestado com sucesso." << endl;
         } else {
-            cout << "O livro '" << livros[id].titulo << "' não está disponível para empréstimo." << endl;
+            cout << "O livro '" << livros[id].titulo << "' nao estÃ¡ disponivel para emprestimo." << endl;
         }
     } else {
-        cout << "ID de livro inválido." << endl;
+        cout << "ID de livro invÃ¡lido." << endl;
     }
 }
 
 
 void GrafoLivros::listarLivrosPopulares() {
-    cout << "Livros mais populares (baseado em empréstimos):" << endl;
+    cout << "Livros mais populares (baseado em emprestimos):" << endl;
     vector<pair<int, int>> populares; 
     for (int i = 0; i < livros.size(); ++i) {
         int numEmprestimos = 0;
@@ -229,7 +228,7 @@ void GrafoLivros::listarLivrosPopulares() {
     });
     for (const auto& par : populares) {
         const Livro& livro = livros[par.first];
-        cout << "ID: " << livro.id << ", Título: " << livro.titulo << ", Autor: " << livro.autor << ", Empréstimos: " << par.second << endl;
+        cout << "ID: " << livro.id << ", TÃ­tulo: " << livro.titulo << ", Autor: " << livro.autor << ", Emprestimos: " << par.second << endl;
     }
 }
 
@@ -238,7 +237,7 @@ void GrafoLivros::listarLivrosEmprestados() {
     
     for (int i = 0; i < livros.size(); ++i) {
         if (!disponibilidade[i][i]) {
-            cout << "ID: " << livros[i].id << ", Título: " << livros[i].titulo << ", Autor: " << livros[i].autor << endl;
+            cout << "ID: " << livros[i].id << ", TÃ­tulo: " << livros[i].titulo << ", Autor: " << livros[i].autor << endl;
         }
     }
 }
@@ -254,9 +253,9 @@ void GrafoLivros::listarLivrosEmprestados() {
         cout << "\nBem Vindo a Biblioteca Universitaria:\n" << endl;
         cout << "1. Adicionar Livro" << endl;
         cout << "2. Conectar Livros" << endl;
-        cout << "3. Verificar Conexão entre Livros" << endl;
+        cout << "3. Verificar Conexao entre Livros" << endl;
         cout << "4. Modificar Livro" << endl;
-        cout << "5. Registrar Empréstimo de Livro" << endl;
+        cout << "5. Registrar Emprestimo de Livro" << endl;
         cout << "6. Listar Livros Populares" << endl;
         cout << "7. Listar Livros Emprestados" << endl;
         cout << "8. Adicionar Categoria a Livro" << endl;  
@@ -268,7 +267,7 @@ void GrafoLivros::listarLivrosEmprestados() {
             case 1:
         {
             string titulo, autor;
-            cout << "Digite o título do livro: ";
+            cout << "Digite o tÃ­tulo do livro: ";
             cin.ignore();
             getline(cin, titulo);
             cout << "Digite o nome do autor: ";
@@ -294,9 +293,9 @@ void GrafoLivros::listarLivrosEmprestados() {
                     cout << "Digite o ID do segundo livro: ";
                     cin >> id2;
                     if (grafoLivros.verificarConexao(id1, id2)) {
-                        cout << "Os livros estão conectados." << endl;
+                        cout << "Os livros estÃ£o conectados." << endl;
                     } else {
-                        cout << "Os livros não estão conectados." << endl;
+                        cout << "Os livros nÃ£o estÃ£o conectados." << endl;
                     }
                 }
                 break;
@@ -306,7 +305,7 @@ void GrafoLivros::listarLivrosEmprestados() {
                     string novoTitulo, novoAutor, novaCategoria;
                     cout << "Digite o ID do livro a ser modificado: ";
                     cin >> id;
-                    cout << "Digite o novo título: ";
+                    cout << "Digite o novo tÃ­tulo: ";
                     cin.ignore();
                     getline(cin, novoTitulo);
                     cout << "Digite o novo autor: ";
@@ -355,7 +354,7 @@ void GrafoLivros::listarLivrosEmprestados() {
                 cout << "Saindo do programa." << endl;
                 break;
             default:
-                cout << "Opção inválida. Tente novamente." << endl;
+                cout << "OpÃ§Ã£o invÃ¡lida. Tente novamente." << endl;
                 break;
         }
     } while (opcao != 0);
